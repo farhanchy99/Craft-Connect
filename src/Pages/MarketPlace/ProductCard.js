@@ -109,7 +109,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div>
-      <div className="bg-white mx-auto h-[400px] w-[300px] rounded-md mb-5 md:hover:-translate-y-[30px] md:transition md:duration-300">
+      <div className="bg-white mx-auto h-[400px] w-[300px] rounded-md mb-5 md:hover:-translate-y-[5px] md:transition md:duration-300">
         <img
           className="mx-auto pt-2 px-2 rounded-md h-[200px] w-full object-cover"
           src={productImg}

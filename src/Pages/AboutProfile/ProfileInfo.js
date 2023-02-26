@@ -32,12 +32,12 @@ const ProfileInfo = ({ myProfile }) => {
       <div className="flex justify-between pt-6 px-4">
         <div className="flex justify-between w-[17%] text-center">
           <div>
-            <h1 className="text-white">Following</h1>
-            <p>{myPro[0]?.following?.length}{" "}</p>
+            <h1 className="dark:text-zinc-300 text-gray-500">Following</h1>
+            <p className="text-gray-700 dark:text-white font-bold text-lg">{myPro[0]?.following?.length}{" "}</p>
           </div>
           <div>
-            <h1 className="text-white">Followers</h1>
-            <p>{myPro[0]?.followers?.length}{" "}</p>
+            <h1 className="dark:text-zinc-300 text-gray-500">Followers</h1>
+            <p className="text-gray-700 dark:text-white font-bold text-lg">{myPro[0]?.followers?.length}{" "}</p>
           </div>
         </div>
         <button onClick={() => setShowCoverMenu(!showCoverMenu)}>
@@ -47,7 +47,7 @@ const ProfileInfo = ({ myProfile }) => {
       {showCoverMenu && (
         <div className="absolute top-0 right-0">
           <div
-            className="dark:bg-[#2a2a2a]  p-[10px] w-[50%] md:w-[200px] rounded-[10px] shadow-lg z-[999] absolute top-10 right-6"
+            className="bg-[#ff3f4a] dark:bg-[#2a2a2a]  p-[10px] w-[50%] md:w-[200px] rounded-[10px] shadow-xl z-[999] absolute top-10 right-6"
             ref={menuRef}
           >
             <div

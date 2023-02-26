@@ -33,27 +33,24 @@ const ProfileDetails = () => {
               {myPro[0]?.displayName}
             </h1>
           </Link>
-          <p className="dark:text-gray-300 text-gray-700">
-            Professional Artist
-          </p>
         </div>
         <div>
           <ul className="menu">
             <div className="hover:bg-[#FF3F4A] hover:text-white dark:text-white text-gray-700 duration-200 rounded-md px-5 py-2">
               <Link to="/editprofile" className="justify-between flex">
-                <p>Edit Profile</p> <FaEdit></FaEdit>
+                <p className="text-[14px]">Edit Profile</p> <FaEdit></FaEdit>
               </Link>
             </div>
             <div className="hover:bg-[#FF3F4A] hover:text-white dark:text-white text-gray-700 duration-200 rounded-md px-5 py-2">
               <Link to="/advertisement/create" className="justify-between flex">
-                Create Advertisement <HiSpeakerphone></HiSpeakerphone>
+                <p className="text-[14px]">Create Advertisement</p> <HiSpeakerphone></HiSpeakerphone>
               </Link>
             </div>
           </ul>
         </div>
         <div className="divider m-0"></div>
-        <div>
-          <Link className="justify-between flex dark:text-white text-gray-700 duration-200 rounded-md px-2 py-2">
+        <div className="text-[14px]">
+          <Link className="justify-between flex dark:text-white text-gray-700 duration-200 rounded-md px-4 py-2">
             Followers
             <span className="flex items-center">
               <FaWifi className="mr-2"></FaWifi> {myPro[0]?.followers?.length}{" "}
@@ -61,8 +58,8 @@ const ProfileDetails = () => {
             </span>
           </Link>
         </div>
-        <div>
-          <Link className="justify-between flex dark:text-white text-gray-700 duration-200 rounded-md px-2 py-2">
+        <div className="text-[14px]">
+          <Link className="justify-between flex dark:text-white text-gray-700 duration-200 rounded-md px-4 py-2">
             Following
             <span className="flex items-center">
               <FaUserCheck className="mr-2"></FaUserCheck>
@@ -70,6 +67,7 @@ const ProfileDetails = () => {
             </span>
           </Link>
         </div>
+        <div className="divider m-0"></div>
         {myPro[0]?.socialMedia ? (
           <>
             <div className="divider m-0"></div>
@@ -97,7 +95,7 @@ const ProfileDetails = () => {
           </>
         ) : (
           <>
-            <p className="mt-2">You Do not Have any social network</p>
+            <p className=" text-center">You Do not Have any social network</p>
           </>
         )}
       </div>

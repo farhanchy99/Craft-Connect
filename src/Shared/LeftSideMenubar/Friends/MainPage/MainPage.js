@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import FriendRequestBar from "../FriendRequest/FrieendRequestBar/FriendRequestBar";
-import FriendRequestCard from "../FriendRequest/FrieendRequestBar/FriendRequestCard";
 import FriendSuggestionCard from "../FriendSuggestion/FriendSuggestionCard/FriendSuggestionCard";
-import AddFriendCard from "./AddFriendCard/AddFriendCard";
-import MainPageCard from "./MainPageCard/MainPageCard";
+import { motion } from "framer-motion"
 
 const MainPage = () => {
   const [allUser, setAllUser] = useState();
@@ -14,37 +11,25 @@ const MainPage = () => {
       .then((data) => setAllUser(data));
   }, []);
   return (
-    <section className="pb-20">
-      <div className="hidden">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold dark:text-white text-black">
-          Friend Requests
-        </h2>
-        {/* <button className="text-[#FF3F4A] hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded">
-          See All
-        </button> */}
-      </div>
-      <div className="grid grid-cols-3 py-2 mx-auto px-4 gap-5 mt-5">
-        <FriendRequestCard></FriendRequestCard>
-        <FriendRequestCard></FriendRequestCard>
-        <FriendRequestCard></FriendRequestCard>
-        <FriendRequestCard></FriendRequestCard>
-        <FriendRequestCard></FriendRequestCard>
-        <FriendRequestCard></FriendRequestCard>
-      </div>
-      <hr className="mt-10 w-[1100px] text-2xl" />
-      </div>
+    <section className="pb-20 w-[90%] m-auto">
 
       <div>
         <div className="flex items-center justify-between mt-10">
-          <h2 className="text-xl font-bold dark:text-white text-black">
-            People You May Know
-          </h2>
+          <div>
+          <motion.div animate={{ x: 10 }} transition={{ ease: "easeOut", duration: 0.85 }}>
+            <h1 className="text-3xl font-bold dark:text-white text-black border-l-4 border-[#FF3F4A] pl-2">Friends</h1>
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h2 className="text-gray-400 dark:text-[#B8B8B8]">
+              People You May Know
+            </h2>
+          </motion.div>
+          </div>
           {/* <button className="text-[#FF3F4A] hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded">
             See All
           </button> */}
         </div>
-        <div className="grid grid-cols-3 py-2 mx-auto px-4 gap-5 mt-5">
+        <div className="grid grid-cols-5 py-2 mx-auto px-4 gap-5 mt-5 overflow-y-auto h-screen home pb-52">
           {allUser?.map((followingUser) => (
             <FriendSuggestionCard
               followingUser={followingUser}

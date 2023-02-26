@@ -18,12 +18,12 @@ const Friends = () => {
   // console.log(users);
   return (
     <section className="bg-white dark:bg-[#2A2A2A]">
-      <div className=" hidden lg:block overflow-y-auto h-screen">
-        <div className="grid grid-cols-12">
+      <div className=" hidden lg:block">
+        <div>
           {/* <div className="col-span-3 hidden lg:block dark:bg-[#3F3F3F]">
             <LeftSide></LeftSide>
           </div> */}
-          <div className="col-span-9">
+          <div>
             <MainPage></MainPage>
           </div>
         </div>

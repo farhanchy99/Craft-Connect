@@ -125,17 +125,17 @@ const PostCard = ({
               </div>
               <div>
                 <div className="dropdown dropdown-bottom dropdown-end ">
-                  <label tabIndex={0} className="text-4xl cursor-pointer ">
+                  <label tabIndex={0} className="text-xl cursor-pointer text-[#FF3F4A]">
                     <BsThreeDots></BsThreeDots>
                   </label>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 dark:bg-[#32205a]"
+                    className="dropdown-content menu p-2 shadow-xl rounded-box w-52 bg-[#FF3F4A] dark:bg-[#2a2a2a] text-white"
                   >
                     <li>
                       <Link
                         onClick={handelAddBookmarked}
-                        className="hover:bg-[#FF3F4A] hover:text-white"
+                        className="hover:bg-[#cc323b]"
                         href="/"
                       >
                         Bookmark
@@ -144,7 +144,7 @@ const PostCard = ({
                     <li>
                       <p
                         onClick={reportedPost}
-                        className="hover:bg-[#FF3F4A] hover:text-white"
+                        className="hover:bg-[#cc323b]"
                       >
                         Report Post
                       </p>
@@ -159,7 +159,7 @@ const PostCard = ({
                   <>
                     {post?.postText.slice(0, 100)}{" "}
                     <Link className="font-bold" to="/">
-                      See More...
+                      ...See More
                     </Link>
                   </>
                 ) : (

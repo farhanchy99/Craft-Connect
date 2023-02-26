@@ -91,7 +91,7 @@ const LeftSideBar = () => {
         {/* code for mobile */}
 
         {open && (
-          <div className="dark:bg-[#563f8e] h-screen bg-[#FAFBFD]">
+          <div className="dark:bg-[#3F3F3F] h-screen bg-[#FAFBFD]">
             <div className="py-3 flex px-4 justify-end  lg:hidden">
               {open && (
                 <RxCross1

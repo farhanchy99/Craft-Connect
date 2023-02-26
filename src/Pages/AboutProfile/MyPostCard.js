@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DynamicPostCard from './PostCard/DynamicPostCard';
 
 const MyPostCard = ({myProfile}) => {
@@ -25,7 +26,10 @@ const MyPostCard = ({myProfile}) => {
       ))}
     </>:
     <>
-      <h1>You have No Post Yet</h1>
+      <div className='text-center mt-5'>
+        <h1 className='text-xl'>You have No Post Yet</h1>
+        <Link to="/"><button className='btn btn-sm bg-[#ff3f4a] hover:bg-[#cc323b] px-2 py-2 text-white'>Post Now</button></Link>
+      </div>
     </>
     }
     

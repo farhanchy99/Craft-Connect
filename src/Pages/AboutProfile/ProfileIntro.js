@@ -6,6 +6,7 @@ import { Authcontext } from "../../Context/UserContext";
 import { BsFacebook, BsLinkedin } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
+import { AiOutlineClockCircle } from "react-icons/ai";
 
 const ProfileIntro = () => {
   const { myPro } = useContext(Authcontext);
@@ -21,14 +22,14 @@ const ProfileIntro = () => {
   return (
     <div className=" pt-5">
       <div className="mx-auto card-body p-2 flex rounded-lg shadow-xl w-full md:w-[300px] text-gray-500 bg-white dark:bg-[#3F3F3F] overflow-scroll home border border-[#FF3F4A]">
-        <h1 className="ml-4 mt-4 dark:text-white text-black">Intro</h1>
-
-        <div>
-            <h1>Joined 2021</h1>
-        </div>
-        
+        <h1 className="ml-4 mt-4 dark:text-white text-black text-xl">Intro</h1>
         <div>
           <ul className="menu">
+            <div className="flex px-5 text-center items-center dark:text-gray-300 text-gray-700">
+                <AiOutlineClockCircle/>
+                <h1 className="px-4 text-center">Joined 2021</h1>
+            </div>
+            <div className="divider m-0"></div>
             <div className="hover:bg-[#FF3F4A] hover:text-white dark:text-white text-gray-700 duration-200 rounded-md px-5 py-2">
               <Link to="/editprofile" className="justify-between flex">
                 <p>Edit Profile</p> <FaEdit></FaEdit>
