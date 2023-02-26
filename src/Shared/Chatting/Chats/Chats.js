@@ -8,20 +8,22 @@ import logo from "../../../assets/logo.png";
 import Message from "../Message/Message";
 
 const Chats = () => {
-  const { data: allusers = [] } = useQuery({
-    queryKey: ["allusers"],
-    queryFn: async () => {
-      const res = await fetch("https://craft-connect-server-blond.vercel.app/allusers");
-      const data = await res.json();
-      return data;
-    },
-  });
-
+  
   const { myPro, myProUpdate } = useContext(Authcontext);
+
   const [currentfrnd, setCurrentfrnd] = useState("");
   const [getMessage, setGetMessage] = useState();
   const [newMessage, setNewMessage] = useState("");
   const scrollRef = useRef();
+
+  const { data: allusers = [], refetch, isLoading=true } = useQuery({
+    queryKey: ["allusers"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/followers/${myPro[0]?.email}`);
+      const data = await res.json();
+      return data;
+    },
+  });
 
 
 
@@ -38,9 +40,9 @@ const Chats = () => {
       senderId: myPro[0]?._id,
       senderName: myPro[0]?.displayName,
       // sendImg: user?.photoURL,
-      recieverId: currentfrnd?._id,
-      recieverName: currentfrnd?.displayName,
-      recieverImg: currentfrnd?.photoURL,
+      recieverId: currentfrnd?.followingUid,
+      recieverName: currentfrnd?.followingName,
+      recieverImg: currentfrnd?.followingPhotoURL,
       message: newMessage ? newMessage : "🧡"
     }
     console.log(newMessage)
@@ -63,18 +65,19 @@ const Chats = () => {
         toast.error(error.message);
       });
   }
-
+  
   useEffect(() => {
     fetch(
-      `https://craft-connect-server-blond.vercel.app/send-messenger/${currentfrnd?._id}/getMessage/${myPro[0]?._id}`
+      `https://craft-connect-server-blond.vercel.app/send-messenger/${currentfrnd?.followingUid}/getMessage/${myPro[0]?._id}`
     )
       .then((res) => res.json())
       .then((data) => {
         setGetMessage(data);
         myProUpdate();
+        refetch();
       });
-  }, [currentfrnd, getMessage]);
-
+  }, [currentfrnd?.followingUid, myPro, myProUpdate, getMessage]);
+  
   const emojiHnadler = (emoje) => {
     console.log(newMessage);
     setNewMessage(`${newMessage}` + emoje);
@@ -89,60 +92,67 @@ const Chats = () => {
     <div className="h-screen overflow-hidden flex items-center justify-center  ">
       <div className="flex h-screen antialiased text-gray-800 w-full">
         <div className="flex flex-row h-full w-full overflow-x-hidden">
-          <div className="flex flex-col py-8 pl-6 pr-3 w-64 bg-[#2A2A2A] flex-shrink-0 w-[20%] border-r border-[#3F3F3F]/80 ">
+          <div className="flex flex-col pt-4 pb-8 pl-6 pr-3 w-64 bg-[#2A2A2A] flex-shrink-0 w-[20%] border-r border-[#3F3F3F]/80 ">
             <div className="flex flex-row items-center justify-start h-12 w-full">
               <div
                 className="flex items-center justify-start rounded-2xl h-10 w-10"
               >
                 <img src={logo} className="w-36 md:w-14 d-block m-auto" alt="" />
               </div>
-              <div className="ml-2 font-bold text-2xl">
-                <Link to="/" className="font-bold text-2xl text-white">
+              <div className="font-bold text-2xl">
+                <Link to="/" className="font-bold text-xl text-white">
                   Craft-Connect
                 </Link>
               </div>
             </div>
             <div
-              className="flex flex-col items-center bg-[#3F3F3F] text-white  shadow-lg shadow-[#9dffb333] mt-4 w-full py-6 px-4 rounded-lg"
+              className="flex flex-col items-center bg-[#3F3F3F] text-white mt-4 w-full py-6 px-4 rounded-lg"
             >
-              <div className="relative max-[768px]:mx-auto flex-shrink-0 w-28 h-28">
-                <div className="absolute w-28 h-28 shadow-[#9dffb3bd] rounded-full -bottom-[15px] -right-[5px] shadow-2xl scale-90"></div>
+              <div className="relative max-[768px]:mx-auto flex-shrink-0 w-20 h-20">
+                <div className="absolute w-20 h-20 rounded-full shadow-2xl scale-90"></div>
                 <img
                   src={myPro[0]?.photoURL}
                   alt="photoURL"
-                  className="w-28 h-28 object-cover rounded-full mt-4 mb-2 relative"
+                  className="w-20 h-20 object-cover rounded-full mt-2 mb-4 relative"
                 />
               </div>
               <Link to="/feature/profile">
-                <h1 className="dark:text-white mt-5  text-white text-center font-bold text-xl hidden lg:block">
+                <h1 className="dark:text-white mt-6 text-white text-center font-bold text-xl hidden lg:block">
                   {myPro[0]?.displayName}
                 </h1>
               </Link>
-              <Link to={`/feature/profile`} className="px-3 py-2 bg-[#1AA37A] shadow-md shadow-[#9dffb333] hover:bg-[#1aa37ac0] transition-all duration-300 rounded-lg mt-3">Your Profile</Link>
+              <Link to={`/feature/profile`} className="px-3 py-2 bg-[#FF3F4A] hover:bg-[#FF3F4A] transition-all duration-300 rounded-lg mt-3">Your Profile</Link>
             </div>
 
-            <div className="bg-[#3F3F3F] shadow-lg shadow-[#9dffb333] text-white mt-5 p-3 rounded-md">
+            <div className="bg-[#3F3F3F] text-white mt-5 p-3 rounded-md">
               <div className="flex flex-col">
                 <div className="flex flex-row items-center justify-between text-xs ">
                   <span className="font-bold text-lg py-3">Active Conversations</span>
                 </div>
-                <div className="flex flex-col space-y-1 mt-4 -mx-2 h-56 overflow-y-auto">
+                <div className="flex flex-col space-y-1 -mx-2 h-64 overflow-y-auto">
+                  {isLoading ? "Loading" :
+                  
+                  <>
                   {
                     allusers.map((chatusers) => (
                       <div key={chatusers._id} className="px-2">
-                        <button className={currentfrnd._id === chatusers._id ? "flex flex-row items-center hover:bg-[#1AA37A] hover:text-white rounded-xl p-2 w-full active" : "flex flex-row items-center hover:bg-[#1AA37A] hover:text-white rounded-xl p-2 w-full"} onClick={() => setCurrentfrnd(chatusers)}>
+                        <button className={currentfrnd.followingUid === chatusers.followingUid ? "flex flex-row items-center hover:bg-[#FF3F4A] hover:text-white rounded-xl p-2 w-full active" : "flex flex-row items-center hover:bg-[#FF3F4A] hover:text-white rounded-xl p-2 w-full"} onClick={() => setCurrentfrnd(chatusers)}>
                           <div className="h-10 w-10 rounded-full border overflow-hidden">
                             <img
-                              src={chatusers.photoURL}
+                              src={chatusers.followingPhotoURL}
                               alt="photoURL"
                               className=""
                             />
                           </div>
-                          <div className="ml-2 text-sm font-semibold">{chatusers.displayName}</div>
+                          <div className="ml-2 text-sm font-semibold">{chatusers.followingName}</div>
                         </button>
                       </div>
                     ))
                   }
+                  </>
+                  
+                  }
+                  
                 </div>
               </div>
             </div>

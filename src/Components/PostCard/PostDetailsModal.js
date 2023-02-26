@@ -96,7 +96,7 @@ const PostDetailsModal = ({ open, setOpen, postId }) => {
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-hidden">
-                        <div className="flex h-screen justify-center py-4  text-center  items-center sm:p-0">
+                        <div className="flex h-screen justify-center py-4 text-center items-center sm:p-0 mt-[50px]">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-100"

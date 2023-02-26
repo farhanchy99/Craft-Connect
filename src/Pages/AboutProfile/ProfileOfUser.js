@@ -16,12 +16,12 @@ const ProfileOfUser = () => {
 
   return (
     <>
-      <div className="dark:bg-[#2A2A2A] overflow-y-auto h-screen grid justify-center ">
+      <div className="dark:bg-[#2A2A2A] overflow-y-auto h-screen grid justify-center pb-24">
         <div className="pt-15 ">
           {myPro.map((myProfile) => {
             return (
               <div>
-                <div className="md:w-[1084px] md:mx-auto md:shadow-md rounded-b-md">
+                <div className="md:w-[1084px] md:mx-auto md:shadow-md rounded-md bg-white dark:bg-[#3F3F3F]">
                   <CoverImg myProfile={myProfile} />
                   {/* <CoverImgMobile /> */}
                   <ProfileInfo myProfile={myProfile} />

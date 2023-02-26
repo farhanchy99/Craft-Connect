@@ -85,7 +85,7 @@ img {
 .active{
   display: flex;
   align-items: center;
-  background-color: #1AA37A;
+  background-color: #FF3F4A;
   color: white;
   padding: 0.5rem;
   border-radius: 0.75rem;

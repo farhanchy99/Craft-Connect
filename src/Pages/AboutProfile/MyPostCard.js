@@ -18,9 +18,17 @@ const MyPostCard = ({myProfile}) => {
 
   return (
     <>
+    {myPost.length>0 ? 
+      <>
       {myPost.map((post) => (
         <DynamicPostCard key={post._id} post={post}></DynamicPostCard>
       ))}
+    </>:
+    <>
+      <h1>You have No Post Yet</h1>
+    </>
+    }
+    
     </>
   );
 };

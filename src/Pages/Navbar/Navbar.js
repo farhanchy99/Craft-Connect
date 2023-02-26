@@ -80,7 +80,7 @@ const Navbar = () => {
 
   return (
     <div className="dark:bg-[#2A2A2A] fixed w-full top-0 z-[999] lg:z-[1000]  h-[72px] ">
-      <div className="flex justify-between items-center backdrop-blur-lg bg-gradient-to-r dark:backdrop-blur-lg bg-[#3F3F3F]">
+      <div className="flex justify-between items-center backdrop-blur-lg bg-gradient-to-r dark:from-[#3F3F3F] from-white to-[#2C2048] dark:to-[#3F3F3F] border-b dark:border-[#595959] shadow-lg">
         <div className="pl-3">
           <Link
             to="/"

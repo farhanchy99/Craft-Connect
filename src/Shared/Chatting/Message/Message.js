@@ -13,7 +13,7 @@ const Message = ({
   emojiHnadler,
   // handleKeyDown
 }) => {
-  const { photoURL, displayName } = currentfrnd;
+  const { followingPhotoURL, followingName } = currentfrnd;
  
   const emojis = [
     "😨",
@@ -51,12 +51,12 @@ const Message = ({
         <div className="flex flex-row items-center py-4 px-6 rounded-2xl shadow bg-[#3F3F3F] text-white">
           <div className="avatar">
             <div className="w-10 rounded-full">
-              <img src={photoURL} alt="img" />
+              <img src={followingPhotoURL} alt="img" />
             </div>
           </div>
 
           <div className="flex flex-col ml-3">
-            <div className="font-semibold text-sm">{displayName}</div>
+            <div className="font-semibold text-sm">{followingName}</div>
             <div className="text-xs text-gray-300">Active</div>
           </div>
 
@@ -82,7 +82,7 @@ const Message = ({
                     <div ref={scrollRef} className="col-start-1 col-end-8 p-3 rounded-lg">
                       <div className="flex flex-row items-center">
                         <img
-                          src={photoURL}
+                          src={followingPhotoURL}
                           alt="img"
                           className="flex items-center justify-center h-10 w-10 rounded-full  flex-shrink-0"
                         ></img>

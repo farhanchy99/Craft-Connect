@@ -11,7 +11,7 @@ import Navbar from "../Navbar/Navbar";
 
 const PostDetails = () => {
   const postdetails = useLoaderData();
-  const { user } = useContext(Authcontext);
+  const { user, myPro } = useContext(Authcontext);
   const [editComment, setEditComment] = useState(false);
   const [updateComment, setUpdateComment] = useState();
   // const [time, setTime] = useState()
@@ -33,7 +33,7 @@ const PostDetails = () => {
 
   const handleEditComment = (_id) => {
     fetch(
-      `https://craft-connect-server-blond.vercel.app/editComment/${_id}?email=${user?.email}`,
+      `https://craft-connect-server-blond.vercel.app/editComment/${_id}?email=${myPro[0]?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -58,7 +58,7 @@ const PostDetails = () => {
 
   const handleDelteComment = (_id) => {
     fetch(
-      `https://craft-connect-server-blond.vercel.app/deleteComment/${_id}?email=${user?.email}`,
+      `https://craft-connect-server-blond.vercel.app/deleteComment/${_id}?email=${myPro[0]?.email}`,
       {
         method: "DELETE",
       }

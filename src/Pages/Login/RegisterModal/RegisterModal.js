@@ -140,7 +140,7 @@ const RegisterModal = () => {
               <div>
                 <input
                   {...register("firstName", {
-                    required: "First name is rquired",
+                    required: "First name is required",
                   })}
                   name="firstName"
                   type="text"
@@ -157,7 +157,7 @@ const RegisterModal = () => {
               <div>
                 <input
                   {...register("lastName", {
-                    required: "Last name is rquired",
+                    required: "Last name is required",
                   })}
                   name="lastName"
                   type="text"
@@ -189,11 +189,11 @@ const RegisterModal = () => {
                 required: "Password is required",
                 minLength: {
                   value: 8,
-                  message: "Password Must be 8 Charecter",
+                  message: "Password Must be 8 Character",
                 },
                 maxLength: {
                   value: 12,
-                  message: "Password Maximum 12 Charecter",
+                  message: "Password Maximum 12 Character",
                 },
                 pattern: {
                   value: /[.*+?^${}()|[\]\\]/g,

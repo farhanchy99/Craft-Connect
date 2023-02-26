@@ -12,7 +12,7 @@ const ProfileInfo = ({ myProfile }) => {
   const menuRef = useRef(null);
   useClickOutside(menuRef, () => setShowCoverMenu(false));
 
-  const { user } = useContext(Authcontext);
+  const { user, myPro } = useContext(Authcontext);
   // console.log(user);
 
   const [open, setOpen] = useState(false);
@@ -29,7 +29,17 @@ const ProfileInfo = ({ myProfile }) => {
 
   return (
     <div className="relative md:w-full">
-      <div className="flex justify-end pt-2 pr-1">
+      <div className="flex justify-between pt-6 px-4">
+        <div className="flex justify-between w-[17%] text-center">
+          <div>
+            <h1 className="text-white">Following</h1>
+            <p>{myPro[0]?.following?.length}{" "}</p>
+          </div>
+          <div>
+            <h1 className="text-white">Followers</h1>
+            <p>{myPro[0]?.followers?.length}{" "}</p>
+          </div>
+        </div>
         <button onClick={() => setShowCoverMenu(!showCoverMenu)}>
           <BsThreeDotsVertical className="text-3xl" />
         </button>
@@ -37,7 +47,7 @@ const ProfileInfo = ({ myProfile }) => {
       {showCoverMenu && (
         <div className="absolute top-0 right-0">
           <div
-            className="dark:bg-[#32205a]  p-[10px] w-[50%] md:w-[200px] rounded-[10px] shadow-md z-[999] absolute top-10 right-6"
+            className="dark:bg-[#2a2a2a]  p-[10px] w-[50%] md:w-[200px] rounded-[10px] shadow-lg z-[999] absolute top-10 right-6"
             ref={menuRef}
           >
             <div
@@ -55,7 +65,7 @@ const ProfileInfo = ({ myProfile }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-evenly  items-center mt-[30px]  pb-2 w-full  mx-auto text-black dark:text-white">
+      <div className="flex justify-evenly  items-center  pb-8 w-full  mx-auto text-black dark:text-white">
         {/* <div>
           <Link>Timeline</Link>
         </div>
@@ -67,11 +77,11 @@ const ProfileInfo = ({ myProfile }) => {
         <div>
           <Link>Friends</Link>
         </div> */}
-        <div>
-          <Link className="text-3xl hover:text-orange-600 duration-300">
+        <div className=" mt-[-35px]">
+          <Link className="text-[27px] hover:text-orange-600 duration-300">
             {myProfile?.displayName}
           </Link>
-          <p className="text-center">Dhaka, Bangladesh</p>
+          {/* <p className="text-center">Dhaka, Bangladesh</p> */}
         </div>
         {/* <div>
           <Link>Photos</Link>

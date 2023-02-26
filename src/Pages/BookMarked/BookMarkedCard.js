@@ -2,8 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { toast } from "react-hot-toast";
+import PostDetailsModal from "../../Components/PostCard/PostDetailsModal";
+import { useState } from "react";
 
 const BookMarkedCard = ({ post, refetch }) => {
+  const [open, setOpen] = useState(false);
+  const [postId, setPostId] = useState('');
+
+
   const handelRemoveBookmarked = () => {
     const post_id = post._id;
     // console.log(post_id);
@@ -23,24 +29,24 @@ const BookMarkedCard = ({ post, refetch }) => {
 
   return (
     <div className="my-5">
-      <div className="w-full border border-[#FF3F4A] p-5 rounded-md shadow-md">
+      <div className="w-full h-[320px] border border-[#FF3F4A] p-5 rounded-md shadow-md bg-white dark:bg-[#3f3f3f]">
         <div className="flex justify-between items-center text-black dark:text-white">
           <div className="flex gap-3 items-center">
             <img
-              className="w-[50px] h-[50px] object-cover rounded-full"
+              className="w-[30px] h-[30px] object-cover rounded-full"
               src={post?.postUserPhoto}
               alt=""
             />
             <div>
               <Link to={`/user/${post.userEmail}`}>
-                <p>{post?.postUserName}</p>
+                <p className="text-sm">{post?.postUserName}</p>
               </Link>
-              <p className="text-sm">{post?.postTime}</p>
+              <p className="text-xs text-zinc-400">{post?.postTime}</p>
             </div>
           </div>
           <div>
             <div className="dropdown dropdown-bottom dropdown-end ">
-              <label tabIndex={0} className="text-4xl cursor-pointer ">
+              <label tabIndex={0} className="text-lg cursor-pointer ">
                 <BsThreeDots></BsThreeDots>
               </label>
               <ul
@@ -69,27 +75,38 @@ const BookMarkedCard = ({ post, refetch }) => {
           </div>
         </div>
         <div className="pb-1">
-          <p className="py-4 text-black dark:text-white">
-            {post?.postText?.length > 100 ? (
-              <>
-                {post?.postText.slice(0, 100)}{" "}
-                <Link className="font-bold" to="/">
-                  See More...
-                </Link>
-              </>
-            ) : (
-              post?.postText
-            )}
-          </p>
+          <Link to={`/postDetails/${post._id}`}>
+            <p className="py-1 text-xs text-black dark:text-white">
+              {post?.postText?.length > 50 ? (
+                <>
+                  {post?.postText.slice(0, 50)}{" "}
+                  <Link className="font-bold" to="/">
+                    See More...
+                  </Link>
+                </>
+              ) : (
+                post?.postText
+              )}
+            </p>
 
-          {/* <Link to={`/postDetails/${post?._id}`}> */}
-          <img
-            className="w-full rounded-md mt-[5px]"
-            src={post?.PostPhoto}
-            alt=""
-          />
+            {
+              post?.PostPhoto ?
+              <>
+                {/* <Link to={}> */}
+                <img
+                  className="w-full h-[200px] rounded-md mt-[5px] object-cover"
+                  src={post?.PostPhoto}
+                  alt=""
+                />
+              </>:
+              <>
+                
+              </>
+            }
+          </Link>
         </div>
       </div>
+    <PostDetailsModal open={open} setOpen={setOpen} postId={postId} />
     </div>
   );
 };
