@@ -19,7 +19,7 @@ const Chats = () => {
   const { data: allusers = [], refetch, isLoading=true } = useQuery({
     queryKey: ["allusers"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/followers/${myPro[0]?.email}`);
+      const res = await fetch(`https://craft-connect-server-blond.vercel.app/followers/${myPro[0]?.email}`);
       const data = await res.json();
       return data;
     },
