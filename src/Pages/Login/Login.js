@@ -97,7 +97,7 @@ const Login = () => {
             }}
             className="space-y-6 ng-untouched ng-pristine ng-valid bg-white px-5 py-10 rounded-lg"
           >
-            <form onClick={handleSubmit(handleLogin)} action="">
+            <form onSubmit={handleSubmit(handleLogin)} action="">
               <div className="space-y-1 text-sm">
                 <input
                   {...register("email", { required: "Email Required" })}

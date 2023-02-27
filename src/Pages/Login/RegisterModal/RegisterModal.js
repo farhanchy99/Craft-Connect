@@ -50,7 +50,7 @@ const RegisterModal = () => {
     const url = `https://api.imgbb.com/1/upload?key=${imageKey}`;
     const formData = new FormData();
     // if (selectedFile) {
-    formData.append("image", selectedFile[0]);
+    formData.append("image", selectedFile);
     fetch(url, {
       method: "POST",
       body: formData,
@@ -59,16 +59,16 @@ const RegisterModal = () => {
       .then((data) => {
         let img = data?.data?.display_url;
         // setPreview(img)
-        
+
         // updateuserdata(fullName, img);
         // setUserProfile(img);
         // console.log(data.data.display_url);
         createaccount(email, password).then((result) => {
           const user = result.user;
-          // console.log(user);
           updateUserProfile(fullName, data?.data?.display_url)
             // console.log(fullName, data.data.display_url);
             .then((result) => {
+              navigate("/");
               // console.log(result);
               if (!img) {
                 img = 'https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg';
@@ -94,7 +94,6 @@ const RegisterModal = () => {
                 .then((res) => res.json())
                 .then((data) => {
                   if (data.acknowledged) {
-                    navigate("/");
                     toast.success("Your Account Crated Scuccesfully");
                     setLoading(false);
                   }
@@ -110,27 +109,26 @@ const RegisterModal = () => {
   };
   useEffect(() => {
     if (!selectedFile) {
-      setPreview(undefined);
-      return;
+      setPreview(undefined)
+      return
     }
-    const selectedFIles = [];
-    const targetFilesObject = [...selectedFile];
-    targetFilesObject.map((file) => {
-      return selectedFIles.push(URL.createObjectURL(file));
-    });
 
-    setPreview(selectedFIles);
+    const objectUrl = URL.createObjectURL(selectedFile)
+    setPreview(objectUrl)
+
     // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(selectedFIles);
-  }, [selectedFile, setPreview]);
+    return () => URL.revokeObjectURL(objectUrl)
+  }, [selectedFile])
 
-  const onSelectFile = (e) => {
-    if (!e.target.files || e.target.files?.length === 0) {
-      setSelectedFile(undefined);
-      return;
+  const onSelectFile = e => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined)
+      return
     }
-    setSelectedFile(e.target.files);
-  };
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0])
+  }
 
 
   return (
