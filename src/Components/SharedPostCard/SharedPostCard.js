@@ -5,7 +5,7 @@ const SharedPostCard = ({ post, refetch }) => {
     return (
         <div>
             <div className="my-3">
-                <div className="w-full border border-[#FF3F4A]/50 p-5 rounded-md shadow-md dark:bg-black bg-[#ffffff]">
+                <div className="w-full border border-[#FF3F4A]/50 p-5 rounded-md shadow-md dark:bg-[#2a2a2a] bg-[#ffffff]">
                     <div className="flex justify-between items-center text-black dark:text-white mb-8">
                         <div className="flex gap-3 items-center">
                             <img

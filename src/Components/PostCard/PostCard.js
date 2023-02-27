@@ -128,7 +128,7 @@ const PostCard = ({
       postTime: post?.currentDate,
       postText: post?.postText,
     }; 
-    fetch("http://localhost:5000/sharedPost", {
+    fetch("https://craft-connect-server-blond.vercel.app/sharedPost", {
       method: "POST",
       headers: {
         "content-type": "application/json",

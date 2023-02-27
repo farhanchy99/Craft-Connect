@@ -15,7 +15,7 @@ const Posts = () => {
   const { data: sharedPosts = [], refetch:sharedPostsRefetch } = useQuery({
     queryKey: ["sharedPost"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/sharedPost`);
+      const res = await fetch(`https://craft-connect-server-blond.vercel.app/sharedPost`);
       const data = res.json();
       return data;
     },
