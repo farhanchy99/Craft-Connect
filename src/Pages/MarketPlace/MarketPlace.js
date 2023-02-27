@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import craft1 from "../../assets/craftproducts/81a4sXq6N4L._SL1500_.jpg";
+import Loading from "../../Shared/Loading/Loading";
 
 const MarketPlace = () => {
   const [cartProduct, setCartProduct] = useState(null);
 
   // console.log(cartProduct);
 
-  const { data: products = [] } = useQuery({
+  const { data: products = [], isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await fetch("https://craft-connect-server-blond.vercel.app/products");
@@ -17,7 +18,9 @@ const MarketPlace = () => {
     },
   });
 
-  // console.log(products);
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className=" relative  p-3 rounded-md mx-auto w-[95%] md:w-[98%] grid grid-cols-1 md:grid-cols-4 gap-y-10 h-screen overflow-y-auto mt-8 mb-10  pb-32  ">

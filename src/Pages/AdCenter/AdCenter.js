@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
+import Loading from "../../Shared/Loading/Loading";
 
 const AdCenter = () => {
-  const { data: addvertise = [], refetch } = useQuery({
+  const { data: addvertise = [], refetch, isLoading } = useQuery({
     queryKey: ["addvertise"],
     queryFn: async () => {
       const res = await fetch(
@@ -13,13 +14,16 @@ const AdCenter = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loading/>;
+  }
   return (
     <>
       <section className="py-10 sm:py-16 lg:py-24 overflow-y-auto h-screen ">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-full">
           <div className="max-w-2xl mx-auto text-center dark:text-white">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl dark:text-white">Latest Ads</h2>
-            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 dark:text-gray-300">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 dark:text-gray-300">We Have Thousands Of Clients And Buyers You Can Checkout This Products and Buy</p>
           </div>
 
           <div className="grid max-w-md grid-cols-1 mx-auto mt-12 lg:max-w-full lg:mt-16 lg:grid-cols-3 gap-x-[20px] gap-y-12" z>

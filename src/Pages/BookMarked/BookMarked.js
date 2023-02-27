@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useContext } from "react";
 import { Authcontext } from "../../Context/UserContext";
+import Loading from "../../Shared/Loading/Loading";
 import BookMarkedCard from "./BookMarkedCard";
 
 const BookMarked = () => {
 
   const { user } = useContext(Authcontext)
 
-  const { data: posts = [], refetch } = useQuery({
+  const { data: posts = [], refetch, isLoading } = useQuery({
     queryKey: [user?.email],
     // queryKey: ["posts" ,user?.email],
     queryFn: async () => {
@@ -17,7 +18,9 @@ const BookMarked = () => {
       return data;
     },
   });
-
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="h-screen flex flex-col items-center mt-5 md:mt-5 overflow-y-auto w-full pb-32">
       <h1 className="sm:text-xl md:text-2xl pt-5 pb-3 font-semibold text-black dark:text-white">All your bookmarked posts are here!</h1>
