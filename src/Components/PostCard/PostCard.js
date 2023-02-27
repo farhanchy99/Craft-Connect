@@ -8,7 +8,11 @@ import { Link } from "react-router-dom";
 import { Authcontext } from "../../Context/UserContext";
 import PostDetails from "../../Pages/PostDetails/PostDetails";
 import PostDetailsModal from "./PostDetailsModal";
-
+import ShareModal from './ShareModal'
+import {
+  FacebookShareButton,
+  FacebookIcon
+} from "react-share";
 const PostCard = ({
   refetch,
   post,
@@ -18,6 +22,7 @@ const PostCard = ({
 }) => {
   const [postReactions, setReactions] = useState([]);
   const [open, setOpen] = useState(false);
+  const [opens, setOpens] = useState(false);
   const [postId, setPostId] = useState('');
   const [editPost, setEditPost] = useState(false);
   const [love, setLove] = useState(false);
@@ -149,6 +154,14 @@ const PostCard = ({
                         Report Post
                       </p>
                     </li>
+                    <li>
+                      <p
+                        onClick={() => { setOpens(true); setPostId(post?._id) }}
+                        className="hover:bg-[#cc323b]"
+                      >
+                        Share Post
+                      </p>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -248,6 +261,7 @@ const PostCard = ({
         </div>
       </div>
       <PostDetailsModal open={open} setOpen={setOpen} postId={postId} />
+      <ShareModal opens={opens} setOpens={setOpens} postId={postId} />
 
     </div>
 
