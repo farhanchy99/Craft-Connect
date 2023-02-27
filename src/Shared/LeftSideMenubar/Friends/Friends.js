@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Loading from "../../Loading/Loading";
 import FriendRequestCard from "./FriendRequest/FrieendRequestBar/FriendRequestCard";
 import LeftSide from "./LeftSide/LeftSide";
 import MainPage from "./MainPage/MainPage";
@@ -16,9 +15,6 @@ const Friends = () => {
       return data;
     },
   });
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
   // console.log(users);
   return (
     <section className="bg-white dark:bg-[#2A2A2A]">
@@ -34,7 +30,7 @@ const Friends = () => {
       </div>
 
       {/* For Mobile device  */}
-      <div className="max-w-xl mt-[60px] h-screen">
+      {/* <div className="max-w-xl mt-[60px] h-screen">
         <div className="flex justify-between items-center px-4 dark:text-white text-black">
           <h2 className="font-bold text-2xl"> Friends</h2>
           <FaSearch className="text-2xl"></FaSearch>
@@ -65,7 +61,7 @@ const Friends = () => {
           <FriendRequestCard></FriendRequestCard>
           <FriendRequestCard></FriendRequestCard>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

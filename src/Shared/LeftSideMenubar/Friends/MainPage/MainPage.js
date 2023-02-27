@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import FriendSuggestionCard from "../FriendSuggestion/FriendSuggestionCard/FriendSuggestionCard";
 import { motion } from "framer-motion"
+import Loading from "../../../Loading/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const MainPage = () => {
-  const [allUser, setAllUser] = useState();
 
-  useEffect(() => {
-    fetch("https://craft-connect-server-blond.vercel.app/allusers")
-      .then((result) => result.json())
-      .then((data) => setAllUser(data));
-  }, []);
+  const { data: allUser = [], refetch, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("https://craft-connect-server-blond.vercel.app/allusers");
+      const data = await res.json();
+      return data;
+    },
+  });
+  refetch()
+  // if (isLoading) {
+  //   return <Loading></Loading>;
+  // }
   return (
     <section className="pb-20 w-[90%] m-auto">
 
@@ -30,12 +38,18 @@ const MainPage = () => {
           </button> */}
         </div>
         <div className="grid grid-cols-5 py-2 mx-auto px-4 gap-5 mt-5 overflow-y-auto h-screen home pb-52">
-          {allUser?.map((followingUser) => (
-            <FriendSuggestionCard
-              followingUser={followingUser}
-              key={followingUser?._id}
-            ></FriendSuggestionCard>
-          ))}
+          {isLoading ? <Loading></Loading> : 
+          <>
+            {allUser?.map((followingUser) => (
+              <FriendSuggestionCard
+                followingUser={followingUser}
+                isLoading={isLoading}
+                key={followingUser?._id}
+              ></FriendSuggestionCard>
+            ))}
+          </>
+          
+          }
         </div>
       </div>
     </section>

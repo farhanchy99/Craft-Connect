@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../../../../../Context/UserContext";
-const FriendSuggestionCard = ({ followingUser }) => {
+import Loading from "../../../../Loading/Loading";
+
+const FriendSuggestionCard = ({ followingUser, isLoading }) => {
   const { user, myProUpdate } = useContext(Authcontext);
   const [follow, setFollow] = useState(false);
 
-  const handleFollow = (id) => {
+  const handleFollow = (id ) => {
     const followerUsers = user?.email;
     const followingUsers = id;
     const container = { followerUsers, followingUsers };
@@ -25,6 +27,10 @@ const FriendSuggestionCard = ({ followingUser }) => {
         }
       });
   };
+  
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="w-[90%]">
     <div className="lg:mt-5">

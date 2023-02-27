@@ -27,7 +27,7 @@ const ProfileIntro = () => {
           <ul className="menu">
             <div className="flex px-5 text-center items-center dark:text-gray-300 text-gray-700">
                 <AiOutlineClockCircle/>
-                <h1 className="px-4 text-center">Joined 2021</h1>
+                <h1 className="px-4 text-center">Joined {myPro[0].userCreatedDate}</h1>
             </div>
             <div className="divider m-0"></div>
             <div className="hover:bg-[#FF3F4A] hover:text-white dark:text-white text-gray-700 duration-200 rounded-md px-5 py-2">
