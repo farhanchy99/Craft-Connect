@@ -1,14 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { BiLike, BiShareAlt } from "react-icons/bi";
+import { BiLike, BiShareAlt, BiHeart } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../Context/UserContext";
 import PostDetails from "../../Pages/PostDetails/PostDetails";
 import PostDetailsModal from "./PostDetailsModal";
-
+import ShareModal from './ShareModal'
+import {
+  FacebookShareButton,
+  FacebookIcon
+} from "react-share";
 const PostCard = ({
   refetch,
   post,
@@ -18,6 +22,7 @@ const PostCard = ({
 }) => {
   const [postReactions, setReactions] = useState([]);
   const [open, setOpen] = useState(false);
+  const [opens, setOpens] = useState(false);
   const [postId, setPostId] = useState('');
   const [editPost, setEditPost] = useState(false);
   const [love, setLove] = useState(false);
@@ -108,7 +113,7 @@ const PostCard = ({
       {/* Latest Design Post card  */}
       <div>
         <div className="my-3">
-          <div className="w-full border border-[#FF3F4A] p-5 rounded-md shadow-md">
+          <div className="w-full border border-[#FF3F4A]/50 p-4 rounded-md shadow-md bg-white dark:bg-[#3F3F3F]">
             <div className="flex justify-between items-center text-black dark:text-white">
               <div className="flex gap-3 items-center">
                 <img
@@ -118,24 +123,24 @@ const PostCard = ({
                 />
                 <div>
                   <Link to={`/user/${post.userEmail}`}>
-                    <p>{post?.userName}</p>
+                    <p className="text-[16px]">{post?.userName}</p>
                   </Link>
-                  <p className="text-sm">{post?.currentDate}</p>
+                  <p className="text-[14px] text-zinc-400">{post?.currentDate}</p>
                 </div>
               </div>
               <div>
                 <div className="dropdown dropdown-bottom dropdown-end ">
-                  <label tabIndex={0} className="text-4xl cursor-pointer ">
+                  <label tabIndex={0} className="text-xl cursor-pointer text-[#FF3F4A]">
                     <BsThreeDots></BsThreeDots>
                   </label>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 dark:bg-[#32205a]"
+                    className="dropdown-content menu p-2 shadow-xl rounded-box w-52 bg-[#FF3F4A] dark:bg-[#2a2a2a] text-white"
                   >
                     <li>
                       <Link
                         onClick={handelAddBookmarked}
-                        className="hover:bg-[#FF3F4A] hover:text-white"
+                        className="hover:bg-[#cc323b]"
                         href="/"
                       >
                         Bookmark
@@ -144,22 +149,30 @@ const PostCard = ({
                     <li>
                       <p
                         onClick={reportedPost}
-                        className="hover:bg-[#FF3F4A] hover:text-white"
+                        className="hover:bg-[#cc323b]"
                       >
                         Report Post
+                      </p>
+                    </li>
+                    <li>
+                      <p
+                        onClick={() => { setOpens(true); setPostId(post?._id) }}
+                        className="hover:bg-[#cc323b]"
+                      >
+                        Share Post
                       </p>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div className="pb-7" onClick={() => { setOpen(true); setPostId(post?._id) }}>
-              <p className="py-4 text-black dark:text-white">
+            <div className="pb-4" onClick={() => { setOpen(true); setPostId(post?._id) }}>
+              <p className="py-2 text-black dark:text-white text-[14px]">
                 {post?.postText?.length > 100 ? (
                   <>
                     {post?.postText.slice(0, 100)}{" "}
                     <Link className="font-bold" to="/">
-                      See More...
+                      ...See More
                     </Link>
                   </>
                 ) : (
@@ -176,8 +189,9 @@ const PostCard = ({
                 </Link>
               </div>
             </div>
-            <div className="border-t border-black dark:border-white">
-              <div className="flex justify-between items-center pt-3 mx-3 text-black dark:text-white">
+
+            <div className="border-t border-zinc-400/50">
+              <div className="flex justify-between items-center pt-2 mx-3 text-black dark:text-white">
                 <div className="flex items-center gap-8">
                   <div className="flex items-center gap-1">
                     {/* onClick={() => likedUser(user?.uid)} */}
@@ -186,18 +200,18 @@ const PostCard = ({
                       disabled={liked === true}
                       className={
                         liked === true
-                          ? "text-[30px] text-blue-600"
-                          : "text-[30px]"
+                          ? "text-[20px] text-[#FF3F4A]"
+                          : "text-[20px]"
                       }
                     >
-                      <BiLike />
+                      <BiHeart />
                     </button>
 
-                    <p className="text-2xl">{likeLength.length}</p>
+                    <p className="text-[16px]">{likeLength.length} Likes</p>
                   </div>
                   <div className="flex items-center gap-1">
                     <Link to={`/postDetails/${post?._id}`}>
-                      <button className="text-[27px] mt-3">
+                      <button className="text-[20px] mt-3">
                         <TfiCommentAlt />
                       </button>
                     </Link>
@@ -247,6 +261,7 @@ const PostCard = ({
         </div>
       </div>
       <PostDetailsModal open={open} setOpen={setOpen} postId={postId} />
+      <ShareModal opens={opens} setOpens={setOpens} postId={postId} />
 
     </div>
 
