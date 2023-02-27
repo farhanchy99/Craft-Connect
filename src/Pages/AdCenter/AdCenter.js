@@ -21,8 +21,8 @@ const AdCenter = () => {
   return (
     <>
       <section className="">
-        <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-full">
-          <div className=" dark:text-white pt-10 pb-4">
+        <div className="px-4 mx-auto max-w-full">
+          <div className=" dark:text-white pt-10 pb-4 absolute z-[999] w-full backdrop-blur-sm bg-[#F0F2F5]/50 dark:bg-[#2a2a2a]/50">
           <motion.div animate={{ x: 10 }} transition={{ ease: "easeOut", duration: 0.85 }}>
             <h2 className="text-3xl font-bold dark:text-white text-black border-l-4 border-[#FF3F4A] pl-2">Latest Ads</h2>
           </motion.div>
@@ -31,7 +31,7 @@ const AdCenter = () => {
           </motion.div>
           </div>
 
-          <div className="grid max-w-md grid-cols-1 mx-auto lg:max-w-full lg:grid-cols-4 gap-x-[20px] gap-y-12 overflow-y-auto h-screen home pt-5 pb-10 sm:pb-16 lg:pb-52 ">
+          <div className="grid max-w-md grid-cols-1 mx-auto lg:max-w-full lg:grid-cols-4 gap-x-[20px] gap-y-12 overflow-y-auto h-screen home pt-36 pb-10 sm:pb-16 lg:pb-52 ">
             {addvertise.map((advertise) => {
               return <>
                 <div className="dark:bg-[#3f3f3f] bg-[#FF3F4A] h-[31rem] px-3 py-3 rounded-md relative hover:-translate-y-[5px] transition duration-300">

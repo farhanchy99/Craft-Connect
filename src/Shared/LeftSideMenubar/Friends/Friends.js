@@ -15,6 +15,7 @@ const Friends = () => {
       return data;
     },
   });
+  refetch();
   // console.log(users);
   return (
     <section className="bg-white dark:bg-[#2A2A2A]">

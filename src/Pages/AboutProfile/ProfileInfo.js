@@ -33,7 +33,10 @@ const ProfileInfo = ({ myProfile }) => {
         <div className="flex justify-between w-[17%] text-center">
           <div>
             <h1 className="dark:text-zinc-300 text-gray-500">Following</h1>
-            <p className="text-gray-700 dark:text-white font-bold text-lg">{myPro[0]?.following?.length}{" "}</p>
+            <p className="text-gray-700 dark:text-white font-bold text-lg">
+            {myPro[0]?.following?.length ? myPro[0]?.following?.length : "0"}
+
+            </p>
           </div>
           <div>
             <h1 className="dark:text-zinc-300 text-gray-500">Followers</h1>

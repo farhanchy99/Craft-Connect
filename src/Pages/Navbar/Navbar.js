@@ -138,7 +138,7 @@ const Navbar = () => {
 
         {/*#########################################Profile Modal Start####################################################*/}
         {profile && (
-          <div className="w-[80%] md:w-[30%] shadow-2xl rounded-md absolute top-14 right-6 z-[999] dark:bg-[#18093a] bg-gray-100 mt-5 ">
+          <div className="w-[80%] md:w-[30%] shadow-2xl rounded-md absolute top-14 right-6 z-[999] dark:bg-[#2A2A2A] bg-gray-100 mt-5 ">
             <div className="px-3 py-3">
               <div className="flex justify-between items-center mb-2 ">
                 <Link

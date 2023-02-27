@@ -23,8 +23,8 @@ const MarketPlace = () => {
   }
 
   return (
-    <div className=" w-[90%] md:w-[98%] mx-auto">
-    <div className="pt-10 pb-4">
+    <div className="">
+    <div className="pt-10 pb-4 absolute z-[999] w-full backdrop-blur-sm bg-[#F0F2F5]/50 dark:bg-[#2a2a2a]/50">
     <motion.div animate={{ x: 10 }} transition={{ ease: "easeOut", duration: 0.85 }}>
       <h1 className="text-3xl font-bold dark:text-white text-black border-l-4 border-[#FF3F4A] pl-2">
         Market Place
@@ -35,7 +35,7 @@ const MarketPlace = () => {
       </motion.div>
     </div>
 
-    <div className="relative rounded-md grid grid-cols-1 md:grid-cols-4 gap-y-10 h-screen overflow-y-auto mb-4 pb-52 home pt-5">
+    <div className=" w-[90%] md:w-[98%] mx-auto relative rounded-md grid grid-cols-1 md:grid-cols-4 gap-y-10 h-screen overflow-y-auto mb-4 pb-52 home pt-32">
         {products.map((product) => (
           <ProductCard
             key={product._id}

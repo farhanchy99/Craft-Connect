@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../../../../../Context/UserContext";
-import Loading from "../../../../Loading/Loading";
 
-const FriendSuggestionCard = ({ followingUser, isLoading }) => {
+const FriendSuggestionCard = ({ followingUser }) => {
   const { user, myProUpdate } = useContext(Authcontext);
   const [follow, setFollow] = useState(false);
 
@@ -27,10 +26,6 @@ const FriendSuggestionCard = ({ followingUser, isLoading }) => {
         }
       });
   };
-  
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
   return (
     <div className="w-[90%]">
     <div className="lg:mt-5">
