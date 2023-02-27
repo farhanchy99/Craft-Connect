@@ -3,6 +3,7 @@ import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../Context/UserContext";
+import Loading from "../../Shared/Loading/Loading";
 import BookMarkedCard from "./BookMarkedCard";
 import { motion } from "framer-motion"
 
@@ -10,7 +11,7 @@ const BookMarked = () => {
 
   const { user } = useContext(Authcontext)
 
-  const { data: posts = [], refetch } = useQuery({
+  const { data: posts = [], refetch, isLoading } = useQuery({
     queryKey: [user?.email],
     // queryKey: ["posts" ,user?.email],
     queryFn: async () => {
@@ -19,7 +20,9 @@ const BookMarked = () => {
       return data;
     },
   });
-
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="h-screen flex flex-col w-11/12 m-auto">
       <div className="pt-10 pb-4">

@@ -15,7 +15,7 @@ const RegisterModal = () => {
   const [err, setErr] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [userProfile, setUserProfile] = useState();
-  const [preview, setPreview] = useState([]);
+  const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const followers = [];
@@ -27,11 +27,19 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-
+  const outsideClick = () => {
+    reset();
+    setPreview(false);
+  }
   const handleCreateAccount = async (data, event) => {
     event.preventDefault();
 
     setLoading(true);
+    let currentDate = new Date();
+    const dd = String(currentDate.getDate()).padStart(2, "0");
+    const mm = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const yyyy = currentDate.getFullYear();
+    currentDate = mm + "/" + dd + "/" + yyyy;
     const fullName = data?.firstName + " " + data?.lastName;
     const email = data?.email;
     const password = data?.password;
@@ -42,31 +50,35 @@ const RegisterModal = () => {
     const url = `https://api.imgbb.com/1/upload?key=${imageKey}`;
     const formData = new FormData();
     // if (selectedFile) {
-    formData.append("image", userImgs);
+    formData.append("image", selectedFile);
     fetch(url, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
-        // const img = data?.data?.display_url;
+        let img = data?.data?.display_url;
+        // setPreview(img)
+
         // updateuserdata(fullName, img);
         // setUserProfile(img);
         // console.log(data.data.display_url);
         createaccount(email, password).then((result) => {
           const user = result.user;
-          // console.log(user);
           updateUserProfile(fullName, data?.data?.display_url)
             // console.log(fullName, data.data.display_url);
             .then((result) => {
-              // console.log(result);
               navigate("/");
-
+              // console.log(result);
+              if (!img) {
+                img = 'https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg';
+              }
               const userInfo = {
                 displayName: fullName,
                 email,
+                userCreatedDate: currentDate,
                 password,
-                photoURL: data?.data?.display_url,
+                photoURL: img,
                 followers,
                 following,
               };
@@ -82,7 +94,7 @@ const RegisterModal = () => {
                 .then((res) => res.json())
                 .then((data) => {
                   if (data.acknowledged) {
-                    toast.success("User Created Success");
+                    toast.success("Your Account Crated Scuccesfully");
                     setLoading(false);
                   }
                 });
@@ -95,6 +107,29 @@ const RegisterModal = () => {
         setLoading(false);
       });
   };
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined)
+      return
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile)
+    setPreview(objectUrl)
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl)
+  }, [selectedFile])
+
+  const onSelectFile = e => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined)
+      return
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0])
+  }
+
 
   return (
     <div>
@@ -104,6 +139,7 @@ const RegisterModal = () => {
           <label
             htmlFor="register-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2 bg-gray-200 text-black border-0 font-extrabold hover:bg-gray-200"
+            onClick={outsideClick}
           >
             ✕
           </label>
@@ -118,7 +154,7 @@ const RegisterModal = () => {
                 src={
                   preview
                     ? preview
-                    : "https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg"
+                    : 'https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg'
                 }
                 className="w-[115px] h-[115px] rounded-full object-cover"
                 alt=""
@@ -128,6 +164,7 @@ const RegisterModal = () => {
                 type="file"
                 className="hidden"
                 id="uploadPhoto"
+                onChange={onSelectFile}
               />
               <label
                 htmlFor="uploadPhoto"
@@ -231,9 +268,8 @@ const RegisterModal = () => {
             </select>
             <button
               disabled={loading}
-              className={`bg-[#00a400] ${
-                loading && "cursor-not-allowed"
-              } hover:bg-[#057205] mx-auto border-0 px-8 text-xl h-[36px] font-bold text-white rounded my-2 min-w-[194px] text-center w-2/5`}
+              className={`bg-[#00a400] ${loading && "cursor-not-allowed"
+                } hover:bg-[#057205] mx-auto border-0 px-8 text-xl h-[36px] font-bold text-white rounded my-2 min-w-[194px] text-center w-2/5`}
             >
               {loading ? <p>Loading...</p> : "Register"}
             </button>

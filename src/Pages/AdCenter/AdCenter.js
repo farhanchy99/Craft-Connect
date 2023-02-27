@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion"
+import Loading from "../../Shared/Loading/Loading";
 
 const AdCenter = () => {
-  const { data: addvertise = [], refetch } = useQuery({
+  const { data: addvertise = [], refetch, isLoading } = useQuery({
     queryKey: ["addvertise"],
     queryFn: async () => {
       const res = await fetch(
@@ -14,6 +15,9 @@ const AdCenter = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loading/>;
+  }
   return (
     <>
       <section className="">

@@ -97,7 +97,7 @@ const Login = () => {
             }}
             className="space-y-6 ng-untouched ng-pristine ng-valid bg-white px-5 py-10 rounded-lg"
           >
-            <form onClick={handleSubmit(handleLogin)} action="">
+            <form onSubmit={handleSubmit(handleLogin)} action="">
               <div className="space-y-1 text-sm">
                 <input
                   {...register("email", { required: "Email Required" })}
@@ -106,7 +106,7 @@ const Login = () => {
                   id="email"
                   required
                   placeholder="Enter your mail"
-                  className="md:w-[364px] px-4 my-2 py-3 rounded-md border bg-gray-100"
+                  className="md:w-[364px] px-4 my-2 py-3 rounded-md border text-slate-900"
                 />
                 {errors?.email && (
                   <span className="text-sm text-red-500">
@@ -122,7 +122,7 @@ const Login = () => {
                   id="password"
                   placeholder="Enter your password"
                   required
-                  className="w-full  px-4 py-3 rounded-md border bg-gray-100"
+                  className="w-full  px-4 py-3 rounded-md border text-slate-900"
                 />
               </div>
               <button className="block mt-5 w-full px-4 leading-[48px] text-center font-bold text-[20px] text-white rounded bg-[#FF3F4A]">

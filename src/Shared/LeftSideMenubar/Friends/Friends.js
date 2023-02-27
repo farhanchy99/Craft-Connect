@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Loading from "../../Loading/Loading";
 import FriendRequestCard from "./FriendRequest/FrieendRequestBar/FriendRequestCard";
 import LeftSide from "./LeftSide/LeftSide";
 import MainPage from "./MainPage/MainPage";
 
 const Friends = () => {
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch("https://craft-connect-server-blond.vercel.app/users");
@@ -15,6 +16,9 @@ const Friends = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   // console.log(users);
   return (
     <section className="bg-white dark:bg-[#2A2A2A]">

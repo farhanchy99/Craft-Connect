@@ -26,7 +26,7 @@ const ImgUploadModal = ({ open, setOpen, setSelectedFile, selectedFile, preview,
     setPreview(selectedFIles);
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(selectedFIles);
-  }, [selectedFile]);
+  }, [selectedFile, setPreview]);
 
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files?.length === 0) {
