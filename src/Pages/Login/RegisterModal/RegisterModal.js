@@ -59,9 +59,7 @@ const RegisterModal = () => {
       .then((data) => {
         let img = data?.data?.display_url;
         // setPreview(img)
-        if (!img) {
-          img = 'https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg';
-        }
+        
         // updateuserdata(fullName, img);
         // setUserProfile(img);
         // console.log(data.data.display_url);
@@ -72,7 +70,9 @@ const RegisterModal = () => {
             // console.log(fullName, data.data.display_url);
             .then((result) => {
               // console.log(result);
-
+              if (!img) {
+                img = 'https://uchealth-wp-uploads.s3.amazonaws.com/wp-content/uploads/sites/5/2022/12/01181857/blankprovider-e1669918775597.jpg';
+              }
               const userInfo = {
                 displayName: fullName,
                 email,
